@@ -1,0 +1,49 @@
+doctype html
+html
+  head
+    title NodeJS Exam
+    link(rel="stylesheet" href="/lib/bootstrap-theme-white-plum/dist/css/bootstrap.min.css")
+    link(rel="stylesheet" href="/css/site.css")
+  body
+    nav.navbar.navbar-default
+      .navbar-header
+        button(type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-responsive-collapse")
+          span.icon-bar
+          span.icon-bar
+          span.icon-bar
+          span.icon-bar
+        a(class="navbar-brand" href="/") NodeJS Exam
+
+      .navbar-collapse.collapse.navbar-responsive-collapse
+        ul.nav.navbar-nav
+          li
+            a(href="/somewhere") somewhere
+
+        ul.nav.navbar-nav.navbar-right
+          if (currentUser)
+            li
+              a(href="/") #{currentUser}
+            li
+              a(href="/users/logout") Logout
+          else
+            li
+              a(href="/users/login") Login
+            li
+              a(href="/users/register") Register
+
+    .container
+      if (successMessage)
+        .alert.alert-success #{successMessage}
+      if (infoMessage)
+        .alert.alert-info #{infoMessage}
+      if (errorMessage)
+        .alert.alert-danger #{errorMessage}
+
+      block main-content
+
+    footer.text-center.sticky-footer
+      | Right your wrongs.
+
+    script(src="/lib/jquery/dist/jquery.min.js")
+    script(src="/lib/bootstrap/dist/js/bootstrap.min.js")
+    block additional-scripts

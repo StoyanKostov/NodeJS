@@ -1,0 +1,158 @@
+﻿<!DOCTYPE html>
+<html>  
+<head>  
+    <meta charset="utf-8">  
+    <title>Beer and Fries</title>  
+</head>  
+<body> 	
+	<script>
+		var testData01 = [{
+			type: "beer",
+			score: 10
+		  }, {
+			type: "beer",
+			score: 11
+		  }, {
+			type: "fries",
+			score: 1
+		  }, {
+			type: "fries",
+			score: 5
+		  }];
+		
+		var testData02 = [{
+			type: "beer",
+			score: 1
+		}, {
+			type: "beer",
+			score: 11
+		}, {
+			type: "fries",
+			score: 0
+		}, {
+			type: "fries",
+			score: 50
+		}];
+		
+		 var testData03 = [{
+			type: "beer",
+			score: 5
+		}, {
+			type: "fries",
+			score: 5
+		}];
+		
+		var testData04 = [{
+			type: "beer",
+			score: 1000
+		  }, {
+			type: "beer",
+			score: 1010
+		  }, {
+			type: "beer",
+			score: 1020
+		  }, {
+			type: "beer",
+			score: 1030
+		  }, {
+			type: "beer",
+			score: 1040
+		  }, {
+			type: "fries",
+			score: 834
+		  }, {
+			type: "fries",
+			score: 500
+		  }, {
+			type: "fries",
+			score: -1
+		  }, {
+			type: "fries",
+			score: 0
+		  }, {
+			type: "fries",
+			score: 60
+		  }];
+		
+		function beerAndFries(items){
+			var beersRepository = [];
+			var friesRepository = [];
+			var itemsLength = items.length;
+			var bestScore = 0;
+		
+			var currMaxBeerScore = Number.MIN_VALUE; 
+			var currMaxFriesScore = Number.MIN_VALUE;
+			
+			/* Strait forward way */
+
+			// Slipt items by type
+			//for(var i = 0; i < itemsLength; i++){
+			//	if(items[i].type == 'beer'){
+			//		beersRepository.push(items[i].score);
+			//	}
+			//	else if(items[i].type == 'fries'){
+			//		friesRepository.push(items[i].score);
+			//	}
+			//	else{
+			//		alert('Wrong input type');
+			//	}
+			//}
+			//// Sort repositories
+			//beersRepository.sort(function(a,b) {return a -b;});
+			//friesRepository.sort(function(a,b) {return a -b;});
+			//
+			//// Calculate maximum score
+			//for(var i = 0; i < itemsLength/2; i++){
+			//	bestScore += beersRepository[i] * friesRepository[i];
+			//}
+			
+			/* My way */
+
+			// If arr types unordered
+			orderArrTypes(items);
+			
+			// Somethig like bubble sort
+			for(var i = 0, j = itemsLength/2; i < itemsLength/2; i++, j++){
+				currMaxBeerScore = items[i].score;
+				currMaxFriesScore = items[j].score;
+				for(var g = i + 1, h = j + 1; g < itemsLength/2; g++, h++){
+					var temp;
+					if( currMaxBeerScore < items[g].score){
+						temp = currMaxBeerScore;
+						currMaxBeerScore = items[g].score;
+						items[g].score = temp;
+					}
+					if( currMaxFriesScore < items[h].score){
+						temp = currMaxFriesScore;
+						currMaxFriesScore = items[h].score;
+						items[h].score = temp;
+					}
+				}
+				bestScore += currMaxBeerScore * currMaxFriesScore;
+			}
+			return bestScore;
+		}
+	
+		// Shift beers at the beginning
+		function orderArrTypes(items){
+			var itemsLength = items.length;
+			var counter = 1;
+			for(var i = 0; i < itemsLength; i++){
+				if(items[i].type == 'beer'){
+					items.unshift(items.splice(i, 1)[0]);
+					counter++;
+					if(counter > itemsLength/2){
+						break;
+					}
+				}
+			}
+		}
+		
+		console.log(beerAndFries(testData01));
+		console.log(beerAndFries(testData02));
+		console.log(beerAndFries(testData03));
+		console.log(beerAndFries(testData04));
+		console.log(beerAndFries([]));
+	</script>
+</body>  
+</html>
