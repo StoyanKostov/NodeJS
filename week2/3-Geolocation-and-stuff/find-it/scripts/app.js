@@ -66,9 +66,9 @@ require(['jquery','async!http://maps.google.com/maps/api/js?sensor=false', 'jque
             dataType: "json",
             success: function(res){
                 //http://stackoverflow.com/questions/22820734/how-to-return-success-from-ajax-post-in-node-js
-                console.log('res', res);
+                //console.log(res);
                 // TODO!!!!!! Нещо са объкани ключовете да го провера
-                //showPoints(points);
+                showPoints(res);
             },
             error: function(err){
                 console.log('err', err);
@@ -82,6 +82,7 @@ require(['jquery','async!http://maps.google.com/maps/api/js?sensor=false', 'jque
      * @param points
      */
     function showPoints(points) {
+        console.log('showPoints');
         if(!largeMap) {
             initializeLargeMap();
         }
